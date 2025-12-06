@@ -107,6 +107,7 @@ Navigate to: **Desk → API Explorer Settings**
 1. Navigate to: `http://your-site/api-explorer`
 2. Browse APIs by app and category (Public, Internal, Resource, Schedulers)
 3. Click on any API to expand details
+4. Use **Reload** button to clear cache and reflect updated settings
 
 ### Testing APIs
 
@@ -147,30 +148,107 @@ When **Maintain User History** is enabled:
 
 ```
 api_explorer/
-├── api/                    # API endpoints
-│   ├── csrf_helper.py     # CSRF token management
-│   ├── pagination.py      # Pagination logic
-│   └── settings.py        # Settings API
-├── core/                  # Core modules
-│   ├── auth/             # Authentication & authorization
-│   ├── config/           # Configuration management
-│   ├── executor/         # API execution engine
-│   ├── favorites/        # Favorites management
-│   ├── history/          # User history tracking
-│   ├── logs/             # Execution logging
-│   ├── openapi/          # OpenAPI/Swagger generation
-│   └── scanner/          # API discovery & scanning
-├── doctype/              # Frappe doctypes
-│   ├── api_execution_logs/
-│   ├── api_explorer_settings/
-│   ├── api_explorer_user_favorite/
-│   └── api_explorer_user_history/
-├── public/js/            # Frontend Vue.js app
-│   ├── components/       # Vue components
-│   ├── services/         # API services
-│   └── styles/           # CSS styles
-└── www/                  # Web pages
-    └── api-explorer.html # Main page
+├── api/                           # API endpoints
+│   ├── __init__.py
+│   ├── csrf_helper.py            # CSRF token management
+│   ├── pagination.py             # Pagination logic
+│   └── settings.py               # Settings API
+├── core/                         # Core modules
+│   ├── auth/
+│   │   ├── __init__.py
+│   │   └── manager.py            # Authentication & authorization
+│   ├── config/
+│   │   ├── __init__.py
+│   │   └── manager.py            # Configuration management
+│   ├── executor/
+│   │   ├── __init__.py
+│   │   └── manager.py            # API execution engine
+│   ├── favorites/
+│   │   ├── __init__.py
+│   │   └── manager.py            # Favorites management
+│   ├── history/
+│   │   ├── __init__.py
+│   │   └── manager.py            # User history tracking
+│   ├── logs/
+│   │   ├── __init__.py
+│   │   └── manager.py            # Execution logging
+│   ├── openapi/
+│   │   ├── __init__.py
+│   │   └── manager.py            # OpenAPI/Swagger generation
+│   └── scanner/
+│       ├── __init__.py
+│       ├── manager.py            # API scanning orchestration
+│       ├── file_scanner.py       # Whitelisted API scanner
+│       ├── resource_scanner.py   # Resource API scanner
+│       └── scheduler_scanner.py  # Scheduler job scanner
+├── api_explorer/
+│   └── doctype/                  # Frappe doctypes
+│       ├── api_execution_logs/
+│       │   ├── __init__.py
+│       │   ├── api_execution_logs.json
+│       │   └── api_execution_logs.py
+│       ├── api_explorer_allowed_role/     # Child table
+│       │   ├── __init__.py
+│       │   ├── api_explorer_allowed_role.json
+│       │   └── api_explorer_allowed_role.py
+│       ├── api_explorer_excluded_app/     # Child table
+│       │   ├── __init__.py
+│       │   ├── api_explorer_excluded_app.json
+│       │   └── api_explorer_excluded_app.py
+│       ├── api_explorer_excluded_method/  # Child table
+│       │   ├── __init__.py
+│       │   ├── api_explorer_excluded_method.json
+│       │   └── api_explorer_excluded_method.py
+│       ├── api_explorer_included_app/     # Child table
+│       │   ├── __init__.py
+│       │   ├── api_explorer_included_app.json
+│       │   └── api_explorer_included_app.py
+│       ├── api_explorer_settings/
+│       │   ├── __init__.py
+│       │   ├── api_explorer_settings.json
+│       │   └── api_explorer_settings.py
+│       ├── api_explorer_user_favorite/
+│       │   ├── __init__.py
+│       │   ├── api_explorer_user_favorite.json
+│       │   └── api_explorer_user_favorite.py
+│       └── api_explorer_user_history/
+│           ├── __init__.py
+│           ├── api_explorer_user_history.json
+│           └── api_explorer_user_history.py
+├── config/
+│   ├── __init__.py
+│   ├── desktop.py                # Desk icons
+│   └── routes.py                 # URL routes
+├── fixtures/
+│   └── api_explorer_settings.json # Default settings
+├── public/js/                    # Frontend Vue.js app
+│   ├── components/
+│   │   ├── AccessDenied.js
+│   │   ├── ApiCard.js
+│   │   ├── ApiExecutor.js
+│   │   └── Stepper.js
+│   ├── services/
+│   │   ├── api.js
+│   │   ├── codeGenerator.js
+│   │   ├── copyService.js
+│   │   ├── favorites.js
+│   │   ├── state.js
+│   │   ├── stepper.js
+│   │   ├── theme.js
+│   │   └── ui.js
+│   ├── styles/
+│   │   ├── animations.css
+│   │   ├── main.css
+│   │   └── modal.css
+│   └── App.js                    # Main Vue app
+├── www/                          # Web pages
+│   ├── api-explorer.html
+│   └── api-explorer.py           # Page controller
+├── __init__.py
+├── hooks.py                      # Frappe hooks
+├── install.py                    # Post-install script
+├── modules.txt
+└── patches.txt
 ```
 
 ### Frontend (Vue 3)
@@ -240,13 +318,51 @@ api_explorer/
 - Click on any tab name to expand it
 - All settings are saved properly
 
-## Security Best Practices
+## Security
+
+### Security Features
+
+**CSRF Protection**
+- All API calls require valid CSRF tokens
+- Tokens are automatically managed and validated
+- Frontend retrieves tokens via `/api/method/api_explorer.api.csrf_helper.get_csrf_token`
+- Every POST request includes `X-Frappe-CSRF-Token` header
+
+**Authentication & Authorization**
+- Role-based access control via **Allowed User Roles**
+- Session validation on every request
+- Guest users are automatically redirected to login
+- Website Users are blocked from accessing API Explorer
+
+**API Execution Security**
+- All API calls use `frappe.call()` with proper permission checks
+- File uploads are sanitized and validated
+- Parameter type conversion prevents injection attacks
+- Response size limits prevent memory exhaustion
+
+**Data Protection**
+- Sensitive data can be excluded via **Excluded API Methods**
+- CSRF tokens hidden in generated code by default
+- API testing can be disabled in production
+- All logs are user-specific and permission-controlled
+
+**Vulnerabilities Addressed**
+- XSS: All API endpoints use `xss_safe=False` with proper sanitization
+- CSRF: Token validation on all state-changing operations
+- SQL Injection: Parameterized queries via Frappe ORM
+- Path Traversal: File paths validated and sanitized
+- DoS: Rate limiting via Frappe's built-in mechanisms
+- Information Disclosure: Sensitive APIs can be excluded
+
+### Security Best Practices
 
 1. **Limit Access** - Only add trusted roles to **Allowed User Roles**
 2. **Exclude Sensitive APIs** - Add sensitive API paths to **Excluded API Methods**
 3. **Disable Testing in Production** - Enable **Disable API Testing** on production sites
 4. **Hide Tokens** - Keep **Include Tokens in Code** disabled
 5. **Monitor Logs** - Enable **Log All API Test Calls** to track usage
+6. **Regular Audits** - Review **API Execution Logs** for suspicious activity
+7. **Principle of Least Privilege** - Grant minimum required roles
 
 ## Development
 
@@ -301,4 +417,4 @@ Built using Frappe Framework and Vue.js
 ---
 
 **Version**: 1.0.0  
-**Last Updated**: December 2024
+**Last Updated**: December 2025
