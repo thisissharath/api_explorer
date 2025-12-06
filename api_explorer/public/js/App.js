@@ -407,12 +407,8 @@ const App = {
         const response = await ApiService.executeApi(api.path, paramObj, files);
         this.apiResponses[api.path] = response;
       } catch (e) {
-        this.apiResponses[api.path] = { 
-          success: false, 
-          response: { error: e.message },
-          status_code: 500,
-          response_time: 0
-        };
+        // Store raw error for consistency with backend format
+        this.apiResponses[api.path] = { error: e.message, type: 'NetworkError' };
       }
       this.executingApi = null;
     },
