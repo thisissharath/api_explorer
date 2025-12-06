@@ -42,9 +42,9 @@ class APIExecutor:
             # Log if enabled - always call, manager checks setting
             self._log_api_call(response_data, execution_context)
             
-            # Check if formatted response is disabled
-            show_formatted = self.settings.get('show_formatted_response')
-            if show_formatted == 0 or show_formatted == '0' or show_formatted is False:
+            # Check if formatted response is enabled (default is 0/disabled)
+            show_formatted = self.settings.get('show_formatted_response', 0)
+            if not show_formatted:
                 return result
             
             return response_data
@@ -53,6 +53,11 @@ class APIExecutor:
             
             # Log errors - always call, manager checks setting
             self._log_api_call(error_response, execution_context)
+            
+            # Check if formatted response is enabled for errors too
+            show_formatted = self.settings.get('show_formatted_response', 0)
+            if not show_formatted:
+                return error_response["response"]
             
             return error_response
     
