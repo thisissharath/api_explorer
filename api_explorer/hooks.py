@@ -9,10 +9,12 @@ app_version = "1.0.0"
 # Fixtures
 fixtures = [
     {
-        "dt": "API Explorer Settings",
+        "doctype": "API Explorer Settings",
         "filters": [["name", "=", "API Explorer Settings"]]
     }
 ]
+
+after_install = "api_explorer.install.after_install"
 
 
 

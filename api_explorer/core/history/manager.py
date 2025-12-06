@@ -10,7 +10,7 @@ class HistoryManager:
         
         sessions = frappe.get_all("API Explorer User History",
             filters={"user": user},
-            fields=["session_id", "login_time", "logout_time", "user_agent", "creation"],
+            fields=["session_id", "login_time", "user_agent", "creation"],
             order_by="login_time desc",
             limit=limit
         )
@@ -53,32 +53,8 @@ class HistoryManager:
     
     @staticmethod
     def track_logout(user=None):
-        try:
-            from api_explorer.core.config.manager import ConfigManager
-            
-            settings = ConfigManager.get_settings()
-            if not settings.get('maintain_user_history', 0):
-                return {"success": True}
-            
-            if not user:
-                user = frappe.session.user
-            
-            session_id = frappe.session.sid
-            
-            # Find and update the session
-            session_doc = frappe.db.get_value("API Explorer User History", 
-                {"session_id": session_id, "user": user}, "name")
-            
-            if session_doc:
-                doc = frappe.get_doc("API Explorer User History", session_doc)
-                doc.logout_time = frappe.utils.now()
-                doc.save(ignore_permissions=True)
-                frappe.db.commit()
-            
-            return {"success": True}
-        except Exception as e:
-            frappe.log_error(f"Track logout error: {str(e)}", "API Explorer History")
-            return {"success": False, "message": str(e)}
+        # Logout tracking removed - not needed
+        return {"success": True}
     
     @staticmethod
     def clear_history(user=None):

@@ -3,12 +3,11 @@
  "creation": "2024-01-01 00:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
- "field_order": ["user", "session_id", "login_time", "logout_time", "user_agent"],
+ "field_order": ["user", "session_id", "login_time", "user_agent"],
  "fields": [
   {"fieldname": "user", "fieldtype": "Link", "label": "User", "options": "User", "reqd": 1},
   {"fieldname": "session_id", "fieldtype": "Data", "label": "Session ID", "reqd": 1},
   {"fieldname": "login_time", "fieldtype": "Datetime", "label": "Login Time", "default": "Now", "reqd": 1},
-  {"fieldname": "logout_time", "fieldtype": "Datetime", "label": "Logout Time"},
   {"fieldname": "user_agent", "fieldtype": "Text", "label": "User Agent"}
  ],
  "index_web_pages_for_search": 1,
