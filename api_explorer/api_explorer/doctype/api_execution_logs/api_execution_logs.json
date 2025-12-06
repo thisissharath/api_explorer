@@ -29,7 +29,8 @@
    "fieldtype": "Datetime",
    "in_list_view": 1,
    "label": "Timestamp",
-   "reqd": 1
+   "reqd": 1,
+   "set_only_once": 1
   },
   {
    "fieldname": "user",
@@ -37,7 +38,8 @@
    "in_list_view": 1,
    "label": "User",
    "options": "User",
-   "reqd": 1
+   "reqd": 1,
+   "set_only_once": 1
   },
   {
    "fieldname": "column_break_4",
@@ -48,19 +50,22 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "App Name",
-   "reqd": 1
+   "reqd": 1,
+   "set_only_once": 1
   },
   {
    "fieldname": "method_name",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Method Name",
-   "reqd": 1
+   "reqd": 1,
+   "set_only_once": 1
   },
   {
    "fieldname": "api_path",
    "fieldtype": "Data",
-   "label": "API Path"
+   "label": "API Path",
+   "set_only_once": 1
   },
   {
    "fieldname": "section_break_7",
@@ -70,7 +75,8 @@
   {
    "fieldname": "parameters",
    "fieldtype": "Long Text",
-   "label": "Parameters"
+   "label": "Parameters",
+   "set_only_once": 1
   },
   {
    "fieldname": "column_break_9",
@@ -79,7 +85,8 @@
   {
    "fieldname": "response",
    "fieldtype": "Long Text",
-   "label": "Response"
+   "label": "Response",
+   "set_only_once": 1
   },
   {
    "fieldname": "section_break_11",
@@ -90,14 +97,16 @@
    "fieldname": "status_code",
    "fieldtype": "Int",
    "in_list_view": 1,
-   "label": "Status Code"
+   "label": "Status Code",
+   "set_only_once": 1
   },
   {
    "default": "0",
    "fieldname": "success",
    "fieldtype": "Check",
    "in_list_view": 1,
-   "label": "Success"
+   "label": "Success",
+   "set_only_once": 1
   },
   {
    "fieldname": "column_break_14",
@@ -107,7 +116,8 @@
    "fieldname": "response_time",
    "fieldtype": "Float",
    "label": "Response Time (ms)",
-   "precision": "2"
+   "precision": "2",
+   "set_only_once": 1
   }
  ],
  "index_web_pages_for_search": 1,

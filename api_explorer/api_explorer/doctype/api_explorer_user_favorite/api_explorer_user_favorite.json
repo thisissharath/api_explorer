@@ -6,9 +6,9 @@
  "engine": "InnoDB",
  "field_order": ["user", "api_name", "api_path"],
  "fields": [
-  {"fieldname": "user", "fieldtype": "Link", "label": "User", "options": "User", "reqd": 1},
-  {"fieldname": "api_name", "fieldtype": "Data", "label": "API Name", "reqd": 1},
-  {"fieldname": "api_path", "fieldtype": "Data", "label": "API Path", "reqd": 1}
+  {"fieldname": "user", "fieldtype": "Link", "label": "User", "options": "User", "reqd": 1, "set_only_once": 1},
+  {"fieldname": "api_name", "fieldtype": "Data", "label": "API Name", "reqd": 1, "set_only_once": 1},
+  {"fieldname": "api_path", "fieldtype": "Data", "label": "API Path", "reqd": 1, "set_only_once": 1}
  ],
  "index_web_pages_for_search": 1,
  "links": [],

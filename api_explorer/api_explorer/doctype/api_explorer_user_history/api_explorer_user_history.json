@@ -6,10 +6,10 @@
  "engine": "InnoDB",
  "field_order": ["user", "session_id", "login_time", "user_agent"],
  "fields": [
-  {"fieldname": "user", "fieldtype": "Link", "label": "User", "options": "User", "reqd": 1},
-  {"fieldname": "session_id", "fieldtype": "Data", "label": "Session ID", "reqd": 1},
-  {"fieldname": "login_time", "fieldtype": "Datetime", "label": "Login Time", "default": "Now", "reqd": 1},
-  {"fieldname": "user_agent", "fieldtype": "Text", "label": "User Agent"}
+  {"fieldname": "user", "fieldtype": "Link", "label": "User", "options": "User", "reqd": 1, "set_only_once": 1},
+  {"fieldname": "session_id", "fieldtype": "Data", "label": "Session ID", "reqd": 1, "set_only_once": 1},
+  {"fieldname": "login_time", "fieldtype": "Datetime", "label": "Login Time", "default": "Now", "reqd": 1, "set_only_once": 1},
+  {"fieldname": "user_agent", "fieldtype": "Text", "label": "User Agent", "set_only_once": 1}
  ],
  "index_web_pages_for_search": 1,
  "links": [],
