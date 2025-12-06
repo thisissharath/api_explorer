@@ -24,7 +24,7 @@ const ApiCard = {
       
       <div v-if="isExpanded" class="api-details">
         <ApiExecutor 
-          v-if="!api.scheduler && !settings.disable_api_testing"
+          v-if="!api.scheduler"
           :api="api"
           :apiPath="api.path || api.api_path"
           :settings="settings"
@@ -48,9 +48,6 @@ const ApiCard = {
           @copyCode="(path) => $emit('copyCode', path)"
           @copyDocs="(path) => $emit('copyDocs', path)"
         />
-        <div v-if="!api.scheduler && settings.disable_api_testing" class="disabled-message">
-          Execution is disabled in settings
-        </div>
         <div v-else-if="api.scheduler" class="scheduler-info">
           <div class="panel-header">
             <div class="panel-title">Scheduler Information</div>

@@ -129,7 +129,7 @@ const ApiExecutor = {
         <button 
           class="execute-btn" 
           @click="$emit('executeApi', api)"
-          :disabled="executingApi === apiPath"
+          :disabled="executingApi === apiPath || settings.disable_api_testing"
         >
           <span v-if="!executingApi || executingApi !== apiPath">▷</span>
           {{ executingApi === apiPath ? 'Executing...' : 'Execute' }}
