@@ -186,7 +186,7 @@
    "default": "0",
    "fieldname": "show_formatted_response",
    "fieldtype": "Check",
-   "label": "Show Formatted Response"
+   "label": "Formatted Response on Copy"
   },
   {
    "fieldname": "filtering_tab",

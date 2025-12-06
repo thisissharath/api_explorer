@@ -426,35 +426,40 @@ const App = {
       const response = this.getApiResponse(api.path || api.api_path);
       if (!response) return;
       
-      const params = this.getApiParameters(api.path || api.api_path);
-      const paramObj = {};
-      params.forEach(p => {
-        if (p.key && p.value) paramObj[p.key] = p.value;
-      });
+      const responseText = typeof response.response === 'string' ? response.response : JSON.stringify(response.response, null, 2);
       
-      const apiPath = api.path || api.api_path;
-      const apiName = api.name || api.api_name;
-      const appName = apiPath.split('.')[0] || 'Unknown';
-      
-      const formatted = `Request:
+      let copyText;
+      if (response.formatted_response_on_copy) {
+        const params = this.getApiParameters(api.path || api.api_path);
+        const paramObj = {};
+        params.forEach(p => {
+          if (p.key && p.value) paramObj[p.key] = p.value;
+        });
+        
+        const apiPath = api.path || api.api_path;
+        const appName = apiPath.split('.')[0] || 'Unknown';
+        
+        copyText = `Request:
 ${JSON.stringify(paramObj, null, 2)}
 
 Response:
-${typeof response.response === 'string' ? response.response : JSON.stringify(response.response, null, 2)}
+${responseText}
 
 Details:
 App Name: ${appName}
 Path: ${apiPath}
 Status Code: ${response.status_code}
 Time Taken: ${Math.round(response.response_time)}ms`;
+      } else {
+        copyText = responseText;
+      }
       
       try {
-        await navigator.clipboard.writeText(formatted);
+        await navigator.clipboard.writeText(copyText);
         CopyService.showNotification('Response copied');
       } catch (e) {
-        // Fallback for older browsers
         const textArea = document.createElement('textarea');
-        textArea.value = formatted;
+        textArea.value = copyText;
         document.body.appendChild(textArea);
         textArea.select();
         document.execCommand('copy');

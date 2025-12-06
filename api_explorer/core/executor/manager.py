@@ -36,16 +36,12 @@ class APIExecutor:
                 "method_name": api_path.split('.')[-1] if '.' in api_path else api_path,
                 "app_name": api_path.split('.')[0] if '.' in api_path else 'Unknown',
                 "user": user_context["user"],
-                "timestamp": frappe.utils.now()
+                "timestamp": frappe.utils.now(),
+                "formatted_response_on_copy": self.settings.get('show_formatted_response', 0)
             }
             
             # Log if enabled - always call, manager checks setting
             self._log_api_call(response_data, execution_context)
-            
-            # Check if formatted response is enabled (default is 0/disabled)
-            show_formatted = self.settings.get('show_formatted_response', 0)
-            if not show_formatted:
-                return result
             
             return response_data
         except Exception as e:
@@ -53,11 +49,6 @@ class APIExecutor:
             
             # Log errors - always call, manager checks setting
             self._log_api_call(error_response, execution_context)
-            
-            # Check if formatted response is enabled for errors too
-            show_formatted = self.settings.get('show_formatted_response', 0)
-            if not show_formatted:
-                return error_response["response"]
             
             return error_response
     
@@ -130,7 +121,8 @@ class APIExecutor:
             "method_name": context["api_path"].split('.')[-1] if '.' in context["api_path"] else context["api_path"],
             "app_name": context["api_path"].split('.')[0] if '.' in context["api_path"] else 'Unknown',
             "user": context["user"],
-            "timestamp": frappe.utils.now()
+            "timestamp": frappe.utils.now(),
+            "formatted_response_on_copy": self.settings.get('show_formatted_response', 0)
         }
     
     def _log_api_call(self, response_data, execution_context):
