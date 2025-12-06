@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>API Explorer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&family=Lato:wght@300;400;700&family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Nunito:wght@300;400;600;700;800&family=Work+Sans:wght@300;400;500;600;700&family=Rubik:wght@300;400;500;600;700&family=Karla:wght@300;400;500;600;700&family=Source+Sans+Pro:wght@300;400;600;700&family=Raleway:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="/assets/api_explorer/js/styles/main.css">
+    <link rel="stylesheet" href="/assets/api_explorer/js/styles/modal.css">
+    <link rel="stylesheet" href="/assets/api_explorer/js/styles/animations.css">
+    
+    <script>
+    async function initializeApp() {
+        try {
+            const response = await fetch('/api/method/api_explorer.api.csrf_helper.get_csrf_token');
+            const data = await response.json();
+            
+            window.csrf_token = data.message || '';
+            window.frappe = {
+                csrf_token: data.message || '',
+                session: { user: 'System User' }
+            };
+            
+            const { createApp } = Vue;
+            const App = await import('/assets/api_explorer/js/App.js');
+            createApp(App.default).mount('#app');
+            
+        } catch (e) {
+            window.csrf_token = '';
+            window.frappe = { csrf_token: '', session: { user: 'Guest' } };
+            
+            const { createApp } = Vue;
+            const App = await import('/assets/api_explorer/js/App.js');
+            createApp(App.default).mount('#app');
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+</head>
+<body>
+    <div id="app"></div>
+
+
+</body>
+</html>

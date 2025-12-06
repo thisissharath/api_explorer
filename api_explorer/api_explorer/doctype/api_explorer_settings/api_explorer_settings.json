@@ -1,0 +1,245 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:title",
+ "creation": "2024-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "general_tab",
+  "enabled",
+  "dark_mode",
+
+  "font_family",
+  "column_break_general",
+  "custom_page_title",
+  "custom_page_description",
+  "api_display_tab",
+  "show_public_apis",
+  "show_internal_apis",
+  "show_resource_apis",
+  "show_scheduler_jobs",
+  "column_break_display",
+  "enable_search",
+  "pagination_tab",
+  "enable_pagination",
+  "items_per_page",
+  "security_tab",
+  "allowed_user_roles",
+  "column_break_security",
+  "log_all_api_calls",
+  "disable_api_testing",
+  "maintain_user_history",
+
+  "include_tokens_in_code",
+  "filtering_tab",
+  "excluded_apps",
+  "column_break_filtering",
+  "excluded_api_methods",
+  "performance_tab",
+  "max_apis_per_app"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled"
+  },
+  {
+   "default": "0",
+   "fieldname": "dark_mode",
+   "fieldtype": "Check",
+   "label": "Dark Mode"
+  },
+  {
+   "fieldname": "general_tab",
+   "fieldtype": "Tab Break",
+   "label": "General"
+  },
+
+  {
+   "default": "Inter",
+   "fieldname": "font_family",
+   "fieldtype": "Select",
+   "label": "Font Family",
+   "options": "Inter\nRoboto\nOpen Sans\nLato\nMontserrat\nPoppins\nNunito\nWork Sans\nRubik\nKarla\nSource Sans Pro\nRaleway\nManrope\nDM Sans\nPlus Jakarta Sans\nSpace Grotesk\nSystem Default"
+  },
+  {
+   "fieldname": "column_break_general",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "custom_page_title",
+   "fieldtype": "Data",
+   "label": "Custom Page Title"
+  },
+  {
+   "fieldname": "custom_page_description",
+   "fieldtype": "Data",
+   "label": "Custom Page Description"
+  },
+  {
+   "fieldname": "api_display_tab",
+   "fieldtype": "Tab Break",
+   "label": "API Display"
+  },
+  {
+   "default": "1",
+   "fieldname": "show_public_apis",
+   "fieldtype": "Check",
+   "label": "Show Public APIs"
+  },
+  {
+   "default": "1",
+   "fieldname": "show_internal_apis",
+   "fieldtype": "Check",
+   "label": "Show Internal APIs"
+  },
+  {
+   "default": "0",
+   "fieldname": "show_resource_apis",
+   "fieldtype": "Check",
+   "label": "Show Resource APIs"
+  },
+  {
+   "default": "0",
+   "fieldname": "show_scheduler_jobs",
+   "fieldtype": "Check",
+   "label": "Show Scheduler Jobs"
+  },
+  {
+   "fieldname": "column_break_display",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "enable_search",
+   "fieldtype": "Check",
+   "label": "Enable API Search"
+  },
+  {
+   "fieldname": "pagination_tab",
+   "fieldtype": "Tab Break",
+   "label": "Pagination"
+  },
+  {
+   "default": "1",
+   "fieldname": "enable_pagination",
+   "fieldtype": "Check",
+   "label": "Enable Pagination"
+  },
+  {
+   "default": "20",
+   "fieldname": "items_per_page",
+   "fieldtype": "Int",
+   "label": "Items Per Page"
+  },
+  {
+   "fieldname": "security_tab",
+   "fieldtype": "Tab Break",
+   "label": "Security & Access"
+  },
+  {
+   "fieldname": "allowed_user_roles",
+   "fieldtype": "Table",
+   "label": "Allowed User Roles",
+   "options": "API Explorer Allowed Role"
+  },
+  {
+   "default": "0",
+   "fieldname": "disable_api_testing",
+   "fieldtype": "Check",
+   "label": "Disable API Testing"
+  },
+  {
+   "fieldname": "column_break_security",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "log_all_api_calls",
+   "fieldtype": "Check",
+   "label": "Log All API Test Calls"
+  },
+  {
+   "default": "1",
+   "fieldname": "maintain_user_history",
+   "fieldtype": "Check",
+   "label": "Maintain User History"
+  },
+
+  {
+   "default": "0",
+   "fieldname": "include_tokens_in_code",
+   "fieldtype": "Check",
+   "label": "Include Tokens in Code"
+  },
+  {
+   "fieldname": "filtering_tab",
+   "fieldtype": "Tab Break",
+   "label": "Filtering"
+  },
+  {
+   "fieldname": "excluded_apps",
+   "fieldtype": "Table",
+   "label": "Excluded Apps",
+   "options": "API Explorer Excluded App"
+  },
+  {
+   "fieldname": "column_break_filtering",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "excluded_api_methods",
+   "fieldtype": "Table",
+   "label": "Excluded API Methods",
+   "options": "API Explorer Excluded Method"
+  },
+  {
+   "fieldname": "performance_tab",
+   "fieldtype": "Tab Break",
+   "label": "Performance"
+  },
+  {
+   "default": "50",
+   "fieldname": "max_apis_per_app",
+   "fieldtype": "Int",
+   "label": "Max APIs per App"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-12-19 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "API Explorer",
+ "name": "API Explorer Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

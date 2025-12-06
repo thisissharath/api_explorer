@@ -1,0 +1,33 @@
+[
+ {
+  "doctype": "API Explorer Settings",
+  "name": "API Explorer Settings",
+  "enabled": 1,
+  "dark_mode": 0,
+  "font_family": "Poppins",
+  "custom_page_title": "API Explorer",
+  "custom_page_description": "Manage all methods at one place",
+  "show_public_apis": 1,
+  "show_internal_apis": 1,
+  "show_resource_apis": 1,
+  "show_scheduler_jobs": 1,
+  "enable_search": 1,
+  "enable_pagination": 1,
+  "items_per_page": 40,
+  "disable_api_testing": 0,
+  "log_all_api_calls": 0,
+  "maintain_user_history": 1,
+  "include_tokens_in_code": 1,
+  "max_apis_per_app": 1000,
+  "allowed_user_roles": [
+   {
+    "doctype": "API Explorer Allowed Role",
+    "role": "Administrator",
+    "parentfield": "allowed_user_roles",
+    "parenttype": "API Explorer Settings"
+   }
+  ],
+  "excluded_apps": [],
+  "excluded_api_methods": []
+ }
+]
