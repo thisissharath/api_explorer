@@ -23,8 +23,6 @@ class APIExecutor:
             "files": files or {}
         }
         
-        show_formatted = int(self.settings.get('show_formatted_response', 1))
-        
         try:
             result = self._execute_with_context(execution_context)
             response_time = (time.time() - start_time) * 1000
@@ -44,7 +42,12 @@ class APIExecutor:
             # Log if enabled - always call, manager checks setting
             self._log_api_call(response_data, execution_context)
             
-            return result if show_formatted == 0 else response_data
+            # Check if formatted response is disabled
+            show_formatted = self.settings.get('show_formatted_response')
+            if show_formatted == 0 or show_formatted == '0' or show_formatted is False:
+                return result
+            
+            return response_data
         except Exception as e:
             error_response = self._handle_execution_error(e, execution_context, start_time)
             

@@ -183,7 +183,7 @@
    "label": "Include Tokens in Code"
   },
   {
-   "default": "1",
+   "default": "0",
    "fieldname": "show_formatted_response",
    "fieldtype": "Check",
    "label": "Show Formatted Response"
