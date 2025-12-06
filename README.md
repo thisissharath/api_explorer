@@ -1,19 +1,19 @@
-# API Explorer
+# API Explorer Documentation
 
 A comprehensive Frappe app for discovering, testing, and managing all APIs in your Frappe/ERPNext environment.
 
 ## Features
 
-- 🔍 **API Discovery** - Automatically scans and lists all whitelisted APIs across installed apps
-- 🧪 **API Testing** - Execute APIs directly from the browser with custom parameters
-- ⭐ **Favorites** - Save frequently used APIs for quick access
-- 📊 **Execution Logs** - Track all API calls with detailed request/response logs
-- 👥 **User History** - Monitor user sessions and login activity
-- 🎨 **Customizable UI** - Dark mode, multiple fonts, and custom branding
-- 🔐 **Role-Based Access** - Control who can access the API Explorer
-- 🚀 **Performance Optimized** - Multi-level caching for fast API scanning
-- 📝 **Code Generation** - Generate API calls in multiple languages (cURL, Python, JavaScript)
-- 🔒 **Security** - Disable API testing, exclude sensitive APIs, and control token visibility
+- **API Discovery** - Automatically scans and lists all whitelisted APIs across installed apps
+- **API Testing** - Execute APIs directly from the browser with custom parameters
+- **Favorites** - Save frequently used APIs for quick access
+- **Execution Logs** - Track all API calls with detailed request/response logs
+- **User History** - Monitor user sessions and login activity
+- **Customizable UI** - Dark mode, multiple fonts, and custom branding
+- **Role-Based Access** - Control who can access the API Explorer
+- **Performance Optimized** - Multi-level caching for fast API scanning
+- **Code Generation** - Generate API calls in multiple languages (cURL, Python, JavaScript)
+- **Security** - Disable API testing, exclude sensitive APIs, and control token visibility
 
 ## Installation
 
@@ -40,8 +40,9 @@ bench --site your-site-name clear-cache
 ## Quick Start
 
 1. After installation, go to **API Explorer Settings** doctype
-2. Add your role to **Allowed User Roles** (e.g., Administrator, System Manager)
-3. Access the API Explorer at: `http://your-site/api-explorer`
+2. **Allowed User Roles** is pre-configured with **Administrator** role
+3. To add more roles, go to **Security & Access** tab and add roles to **Allowed User Roles** table
+4. Access the API Explorer at: `http://your-site/api-explorer`
 
 ## Configuration
 
@@ -80,7 +81,7 @@ Navigate to: **Desk → API Explorer Settings**
 
 | Setting | Description | Default |
 |---------|-------------|---------|
-| **Allowed User Roles** | Roles that can access API Explorer | Administrator |
+| **Allowed User Roles** | Roles that can access API Explorer | Administrator (pre-configured) |
 | **Disable API Testing** | Prevent API execution from UI | ✗ Disabled |
 | **Log All API Test Calls** | Save execution logs to database | ✗ Disabled |
 | **Maintain User History** | Track user login sessions | ✓ Enabled |
@@ -236,7 +237,6 @@ api_explorer/
 
 ### Tabs collapsed on Settings page
 
-- This is normal Frappe behavior
 - Click on any tab name to expand it
 - All settings are saved properly
 
@@ -290,12 +290,13 @@ MIT License - See [LICENSE](license.txt) for details
 
 - **Issues**: [GitHub Issues](https://github.com/thisissharath/api_explorer/issues)
 - **Email**: imsharathkumarv@gmail.com
+- **LinkedIn**: [linkedin.com/in/thisissharath](https://linkedin.com/in/thisissharath)
 
 ## Credits
 
 Developed by **Sharath Kumar**
 
-Built with ❤️ using Frappe Framework and Vue.js
+Built using Frappe Framework and Vue.js
 
 ---
 

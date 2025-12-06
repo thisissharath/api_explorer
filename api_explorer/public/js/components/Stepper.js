@@ -10,7 +10,8 @@ const Stepper = {
       >
         <div class="step-circle">
           <div v-if="step.state === 'processing'" class="step-inner"></div>
-          <div v-if="step.state === 'completed' || step.state === 'failed'" class="step-icon"></div>
+          <span v-if="step.state === 'completed'" class="step-check">✓</span>
+          <span v-if="step.state === 'failed'" class="step-cross">✕</span>
         </div>
         <div class="step-label">{{ step.label }}</div>
       </div>

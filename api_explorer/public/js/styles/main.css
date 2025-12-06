@@ -999,13 +999,13 @@ body.dark-mode .empty-text {
 }
 
 .step.completed .step-circle {
-  border-color: #000000;
-  background: #000000;
+  border-color: #10b981;
+  background: #10b981;
 }
 
 .step.failed .step-circle {
-  border-color: #000000;
-  background: #000000;
+  border-color: #ef4444;
+  background: #ef4444;
 }
 
 .step-inner {
@@ -1016,19 +1016,13 @@ body.dark-mode .empty-text {
   animation: pulse 1.2s infinite;
 }
 
-.step-icon {
-  font-size: 0.92rem;
-  font-weight: 900;
+.step-check,
+.step-cross {
+  font-size: 1rem;
+  font-weight: 700;
   color: #ffffff;
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-.step.completed .step-icon::before {
-  content: '✓';
-}
-
-.step.failed .step-icon::before {
-  content: '✕';
+  line-height: 1;
 }
 
 .step.processing .step-label {
