@@ -54,8 +54,8 @@ Navigate to: **Desk → API Explorer Settings**
 
 | Setting | Description | Default |
 |---------|-------------|---------|
-| **Enabled** | Enable/disable API Explorer | ✓ Enabled |
-| **Dark Mode** | Enable dark theme | ✗ Disabled |
+| **Enabled** | Enable/disable API Explorer | Enabled |
+| **Dark Mode** | Enable dark theme | Disabled |
 | **Font Family** | Choose UI font (Poppins, Inter, Roboto, etc.) | Poppins |
 | **Custom Page Title** | Customize page title | API Explorer |
 | **Custom Page Description** | Customize page description | Manage all methods at one place |
@@ -64,17 +64,17 @@ Navigate to: **Desk → API Explorer Settings**
 
 | Setting | Description | Default |
 |---------|-------------|---------|
-| **Show Public APIs** | Display APIs with `allow_guest=True` | ✓ Enabled |
-| **Show Internal APIs** | Display whitelisted APIs requiring authentication | ✓ Enabled |
-| **Show Resource APIs** | Display Frappe REST resource APIs | ✗ Disabled |
-| **Show Scheduler Jobs** | Display scheduled background jobs | ✗ Disabled |
-| **Enable Search** | Show search bar for filtering APIs | ✓ Enabled |
+| **Show Public APIs** | Display APIs with `allow_guest=True` | Enabled |
+| **Show Internal APIs** | Display whitelisted APIs requiring authentication | Enabled |
+| **Show Resource APIs** | Display Frappe REST resource APIs | Disabled |
+| **Show Scheduler Jobs** | Display scheduled background jobs | Disabled |
+| **Enable Search** | Show search bar for filtering APIs | Enabled |
 
 #### Pagination Tab
 
 | Setting | Description | Default |
 |---------|-------------|---------|
-| **Enable Pagination** | Enable pagination for API lists | ✓ Enabled |
+| **Enable Pagination** | Enable pagination for API lists | Enabled |
 | **Items Per Page** | Number of APIs to display per page | 40 |
 
 #### Security & Access Tab
@@ -82,10 +82,10 @@ Navigate to: **Desk → API Explorer Settings**
 | Setting | Description | Default |
 |---------|-------------|---------|
 | **Allowed User Roles** | Roles that can access API Explorer | Administrator (pre-configured) |
-| **Disable API Testing** | Prevent API execution from UI | ✗ Disabled |
-| **Log All API Test Calls** | Save execution logs to database | ✗ Disabled |
-| **Maintain User History** | Track user login sessions | ✓ Enabled |
-| **Include Tokens in Code** | Show CSRF tokens in generated code | ✗ Disabled |
+| **Disable API Testing** | Prevent API execution from UI | Disabled |
+| **Log All API Test Calls** | Save execution logs to database | Disabled |
+| **Maintain User History** | Track user login sessions | Enabled |
+| **Include Tokens in Code** | Show CSRF tokens in generated code | Disabled |
 
 #### Filtering Tab
 
