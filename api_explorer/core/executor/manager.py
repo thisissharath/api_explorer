@@ -178,7 +178,11 @@ class APIExecutor:
                 return bool(value)
             elif 'list' in type_name or 'array' in type_name:
                 if isinstance(value, str):
-                    return json.loads(value)
+                    try:
+                        return json.loads(value)
+                    except:
+                        value = value.strip('[]')
+                        return [item.strip().strip('"').strip("'") for item in value.split(',') if item.strip()]
                 return value
             elif 'dict' in type_name or 'object' in type_name:
                 if isinstance(value, str):
