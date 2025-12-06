@@ -1,12 +1,11 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "naming_series:",
+ "autoname": "format:API-EXEC-{YYYY}-{MM}-{DD}-{#####}",
  "creation": "2024-01-01 00:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "naming_series",
   "timestamp",
   "user",
   "column_break_4",
@@ -24,13 +23,6 @@
   "response_time"
  ],
  "fields": [
-  {
-   "fieldname": "naming_series",
-   "fieldtype": "Select",
-   "label": "Series",
-   "options": "API-EXEC-.YYYY.-.MM.-.DD.-",
-   "reqd": 1
-  },
   {
    "default": "Now",
    "fieldname": "timestamp",
@@ -124,7 +116,7 @@
  "modified_by": "Administrator",
  "module": "API Explorer",
  "name": "API Execution Logs",
- "naming_rule": "By \"Naming Series\" field",
+
  "owner": "Administrator",
  "permissions": [
   {

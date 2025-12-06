@@ -10,7 +10,6 @@
   "general_tab",
   "enabled",
   "dark_mode",
-
   "font_family",
   "column_break_general",
   "custom_page_title",
@@ -31,7 +30,6 @@
   "log_all_api_calls",
   "disable_api_testing",
   "maintain_user_history",
-
   "include_tokens_in_code",
   "filtering_tab",
   "excluded_apps",
