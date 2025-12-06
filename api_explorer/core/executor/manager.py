@@ -56,9 +56,6 @@ class APIExecutor:
         parameters = context["parameters"]
         files = context["files"]
         
-        if api_path.startswith("/api/resource/"):
-            return {"message": "Resource API - use direct HTTP calls", "type": "resource"}
-        
         exec_params = self._convert_parameter_types(api_path, parameters)
         
         if files:
