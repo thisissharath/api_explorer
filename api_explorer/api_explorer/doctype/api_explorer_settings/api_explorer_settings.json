@@ -31,6 +31,7 @@
   "disable_api_testing",
   "maintain_user_history",
   "include_tokens_in_code",
+  "show_formatted_response",
   "filtering_tab",
   "excluded_apps",
   "column_break_filtering",
@@ -180,6 +181,12 @@
    "fieldname": "include_tokens_in_code",
    "fieldtype": "Check",
    "label": "Include Tokens in Code"
+  },
+  {
+   "default": "1",
+   "fieldname": "show_formatted_response",
+   "fieldtype": "Check",
+   "label": "Show Formatted Response"
   },
   {
    "fieldname": "filtering_tab",
