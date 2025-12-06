@@ -2,6 +2,7 @@
  {
   "doctype": "API Explorer Settings",
   "name": "API Explorer Settings",
+  "title": "API Explorer Settings",
   "enabled": 1,
   "dark_mode": 0,
   "font_family": "Poppins",

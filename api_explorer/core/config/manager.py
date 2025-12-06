@@ -29,6 +29,7 @@ class ConfigManager:
     @staticmethod
     def get_default_settings():
         return {
+            'title': 'API Explorer Settings',
             'enabled': 1,
             'dark_mode': 0,
             'font_family': 'Poppins',

@@ -7,6 +7,7 @@ def after_install():
 		if not frappe.db.exists("API Explorer Settings", "API Explorer Settings"):
 			doc = frappe.get_doc({
 				"doctype": "API Explorer Settings",
+				"title": "API Explorer Settings",
 				"enabled": 1,
 				"dark_mode": 0,
 				"font_family": "Poppins",
