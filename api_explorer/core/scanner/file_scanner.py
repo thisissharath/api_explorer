@@ -36,6 +36,7 @@ class FileScanner:
         public_apis = []
         internal_apis = []
         resource_apis = []
+        custom_decorator_apis = {}  # {decorator_name: [apis]}
         max_apis_limit = self.settings.get('max_apis_per_app', 1000)
         
         try:
@@ -69,6 +70,14 @@ class FileScanner:
                                 # Limit resource APIs to prevent overload
                                 if len(resource_apis) < 100:
                                     resource_apis.append(func_info)
+                            
+                            # Collect custom decorators if enabled
+                            if self.settings.get('show_custom_decorators', 0) and func_info.get('custom_decorators'):
+                                for dec in func_info['custom_decorators']:
+                                    if dec not in custom_decorator_apis:
+                                        custom_decorator_apis[dec] = []
+                                    if len(custom_decorator_apis[dec]) < max_apis_limit:
+                                        custom_decorator_apis[dec].append(func_info)
                         
                         file_count += 1
                 
@@ -78,11 +87,18 @@ class FileScanner:
         except Exception as e:
             frappe.log_error(f"Error scanning {app}: {str(e)}")
         
-        return {
+        result = {
             'public': public_apis[:max_apis_limit],
             'internal': internal_apis[:max_apis_limit], 
             'resource': resource_apis[:max_apis_limit]
         }
+        
+        # Add custom decorator categories
+        if self.settings.get('show_custom_decorators', 0):
+            for dec_name, apis in custom_decorator_apis.items():
+                result[f'@{dec_name}'] = apis[:max_apis_limit]
+        
+        return result
     
     def _extract_functions_fast(self, file_path, app):
         functions = []
@@ -96,14 +112,16 @@ class FileScanner:
             
             tree = ast.parse(content)
             
-            for node in ast.walk(tree):
+            # Module-level functions only (Phase 1)
+            for node in tree.body:
                 if isinstance(node, ast.FunctionDef) and not node.name.startswith('_'):
-                    is_whitelisted, allow_guest = self._check_whitelist_decorator(node)
+                    is_whitelisted, allow_guest, custom_decorators = self._check_whitelist_decorator(node)
                     func_info = self._create_api_info_fast(node, file_path, app)
                     
                     if func_info:
                         func_info['is_whitelisted'] = is_whitelisted
                         func_info['allow_guest'] = allow_guest
+                        func_info['custom_decorators'] = custom_decorators
                         functions.append(func_info)
         
         except Exception:
@@ -114,6 +132,7 @@ class FileScanner:
     def _check_whitelist_decorator(self, node):
         is_whitelisted = False
         allow_guest = False
+        custom_decorators = []
         
         for decorator in node.decorator_list:
             # Handle @frappe.whitelist or @some_module.whitelist
@@ -130,8 +149,25 @@ class FileScanner:
                                 allow_guest = keyword.value.value
                             elif isinstance(keyword.value, ast.NameConstant):  # For older Python versions
                                 allow_guest = keyword.value.value
+                else:
+                    # Capture custom decorators like @api_explorer()
+                    custom_decorators.append(self._get_decorator_name(decorator.func))
+            elif isinstance(decorator, ast.Name):
+                # Capture simple decorators like @api_explorer
+                custom_decorators.append(decorator.id)
+            elif isinstance(decorator, ast.Attribute):
+                # Capture decorators like @module.custom_api
+                custom_decorators.append(decorator.attr)
         
-        return is_whitelisted, allow_guest
+        return is_whitelisted, allow_guest, custom_decorators
+    
+    def _get_decorator_name(self, node):
+        """Extract decorator name from AST node"""
+        if isinstance(node, ast.Name):
+            return node.id
+        elif isinstance(node, ast.Attribute):
+            return node.attr
+        return 'unknown'
     
     def _create_api_info_fast(self, node, file_path, app):
         try:
@@ -143,7 +179,7 @@ class FileScanner:
                 "name": node.name,
                 "path": full_path,
                 "location": full_path,
-                "docstring": "",  # Skip docstring parsing for speed
+                "docstring": "",
                 "parameters": self._analyze_parameters_fast(node),
                 "file_path": file_path,
                 "line_number": node.lineno
@@ -155,9 +191,6 @@ class FileScanner:
         params = []
         try:
             for i, arg in enumerate(node.args.args):
-                if arg.arg == 'self':
-                    continue
-                
                 default_offset = len(node.args.args) - len(node.args.defaults)
                 has_default = i >= default_offset
                 

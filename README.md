@@ -14,6 +14,7 @@ A comprehensive Frappe app for discovering, testing, and managing all APIs in yo
 - **Performance Optimized** - Multi-level caching for fast API scanning
 - **Code Generation** - Generate API calls in multiple languages (cURL, Python, JavaScript)
 - **Security** - Disable API testing, exclude sensitive APIs, and control token visibility
+- **Custom Decorator Discovery (Development Phase)** - Detect and categorize APIs with custom decorators beyond @frappe.whitelist
 
 ## Installation
 
@@ -24,8 +25,11 @@ A comprehensive Frappe app for discovering, testing, and managing all APIs in yo
 ### Install Steps
 
 ```bash
-# Get the app
+# Get the app (stable version)
 bench get-app https://github.com/thisissharath/api_explorer.git
+
+# OR get development branch (includes Custom Decorator Discovery feature)
+bench get-app https://github.com/thisissharath/api_explorer.git --branch dev
 
 # Install on your site
 bench --site your-site-name install-app api_explorer
@@ -36,6 +40,8 @@ bench --site your-site-name migrate
 # Clear cache
 bench --site your-site-name clear-cache
 ```
+
+**Note:** Use `dev` branch if you want to test the Custom Decorator Discovery feature (Development Phase). For production, use the stable `main` branch.
 
 ## Quick Start
 
@@ -68,6 +74,7 @@ Navigate to: **Desk → API Explorer Settings**
 | **Show Internal APIs** | Display whitelisted APIs requiring authentication | Enabled |
 | **Show Resource APIs** | Display Frappe REST resource APIs | Disabled |
 | **Show Scheduler Jobs** | Display scheduled background jobs | Disabled |
+| **Show Custom Decorators (Development Phase)** | Discover APIs with custom decorators like @task, @deprecated, etc. | Disabled |
 | **Enable Search** | Show search bar for filtering APIs | Enabled |
 
 #### Pagination Tab
@@ -285,6 +292,76 @@ api_explorer/
 | `/api/method/api_explorer.core.scanner.manager.clear_cache` | POST | Clear all caches |
 | `/api/method/api_explorer.core.logs.manager.get_logs` | GET | Get execution logs |
 | `/api/method/api_explorer.core.history.manager.get_user_sessions` | GET | Get user sessions |
+
+## Custom Decorator Discovery (Development Phase)
+
+⚠️ **EXPERIMENTAL FEATURE - USE WITH CAUTION**
+
+This feature is currently in **development phase** and should be tested thoroughly before using in production.
+
+### What It Does
+
+Automatically discovers and categorizes APIs decorated with custom decorators (not just `@frappe.whitelist`). Examples:
+- `@task(queue="short")`
+- `@deprecated`
+- `@savepoint(catch=Exception)`
+- Any custom decorator in your codebase
+
+### Installation
+
+**This feature is only available in the `dev` branch:**
+
+```bash
+# Install from dev branch
+bench get-app https://github.com/thisissharath/api_explorer.git --branch dev
+bench --site your-site-name install-app api_explorer
+bench --site your-site-name migrate
+```
+
+### How to Enable
+
+1. Go to **API Explorer Settings** → **API Display** tab
+2. Enable **Show Custom Decorators (Development Phase)**
+3. Save settings
+4. Clear cache and reload API Explorer
+5. Check sidebar for **CUSTOM DECORATORS** section under each app
+
+### Current Limitations (Phase 1)
+
+- ✅ Scans module-level functions only
+- ❌ Does not scan class methods (planned for Phase 2)
+- ✅ Detects decorator names and parameters
+- ✅ Shows all function parameters
+- ✅ Groups by decorator type (e.g., @task, @deprecated)
+- ✅ Respects excluded apps and methods
+- ✅ Performance optimized (max 200 files per app)
+
+### UI Features
+
+- Custom decorators appear under **CUSTOM DECORATORS** header in sidebar
+- Long decorator names automatically wrap (80% width trigger)
+- Same styling as standard categories (public/internal)
+- Full dark mode support
+
+### Testing Recommendations
+
+1. Test on development environment first
+2. Monitor performance with large codebases
+3. Check if all expected decorators are detected
+4. Verify parameter extraction is accurate
+5. Report issues on GitHub
+
+### Known Issues
+
+- Class methods with custom decorators not detected (Phase 2)
+- Decorator parameters not displayed in UI (coming soon)
+- No execution support for non-whitelisted custom decorators
+
+### Roadmap
+
+- **Phase 2**: Class method scanning
+- **Phase 3**: Decorator parameter display
+- **Phase 4**: Custom decorator execution support
 
 ## Troubleshooting
 

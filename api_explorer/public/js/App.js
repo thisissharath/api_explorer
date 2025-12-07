@@ -535,6 +535,10 @@ Time Taken: ${Math.round(response.response_time)}ms`;
       
       return this.paginatedApis.find(api => api.path === apiPath) || 
              { path: apiPath, name: apiPath.split('.').pop() };
+    },
+    
+    hasCustomDecorators(appData) {
+      return Object.keys(appData).some(category => category.startsWith('@'));
     }
   },
   
@@ -611,13 +615,29 @@ Time Taken: ${Math.round(response.response_time)}ms`;
                   </div>
                 </div>
                 <div v-if="isAppExpanded(appName)" class="category-list">
-                  <div v-for="(apis, category) in appData" :key="category" 
-                       class="category-item"
-                       :class="{ active: selectedApp === appName && selectedCategory === category }"
-                       @click.stop="onSelectCategory(appName, category)">
-                    <span>{{ category }}</span>
-                    <span class="count-badge">{{ apis.length }}</span>
+                  <template v-for="(apis, category) in appData" :key="category">
+                    <div v-if="!category.startsWith('@')" 
+                         class="category-item"
+                         :class="{ active: selectedApp === appName && selectedCategory === category }"
+                         @click.stop="onSelectCategory(appName, category)">
+                      <span>{{ category }}</span>
+                      <span class="count-badge">{{ apis.length }}</span>
+                    </div>
+                  </template>
+                  
+                  <div v-if="hasCustomDecorators(appData)" class="custom-decorators-header">
+                    CUSTOM DECORATORS
                   </div>
+                  
+                  <template v-for="(apis, category) in appData" :key="'custom-' + category">
+                    <div v-if="category.startsWith('@')" 
+                         class="category-item category-item-multiline"
+                         :class="{ active: selectedApp === appName && selectedCategory === category }"
+                         @click.stop="onSelectCategory(appName, category)">
+                      <span class="category-name-multiline">{{ category }}</span>
+                      <span class="count-badge">{{ apis.length }}</span>
+                    </div>
+                  </template>
                 </div>
               </div>
             </div>

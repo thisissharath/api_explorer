@@ -47,6 +47,7 @@ class ConfigManager:
             'maintain_user_history': 1,
             'include_tokens_in_code': 1,
             'show_formatted_response': 0,
+            'show_custom_decorators': 0,
             'max_apis_per_app': 1000,
             'allowed_user_roles': [{'role': 'Administrator'}],
             'excluded_apps': [],

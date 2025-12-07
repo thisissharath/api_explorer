@@ -1727,3 +1727,41 @@ body.dark-mode .code-body {
   box-sizing: border-box;
 }
 
+
+/* Custom Decorators Section */
+.custom-decorators-header {
+  padding: 0.62rem 0.92rem;
+  font-size: 0.77rem;
+  font-weight: 700;
+  color: #8d9096;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: #f3f4f6;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  margin-top: 0.3rem;
+}
+
+body.dark-mode .custom-decorators-header {
+  background: #334155;
+  color: #94a3b8;
+  border-top-color: #475569;
+  border-bottom-color: #475569;
+}
+
+.category-item-multiline { padding: 0.46rem 1.85rem; font-size: 0.85rem; color: #6b7280; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.15s ease; border-left: 3px solid transparent; min-height: 2.15rem; }
+
+.category-name-multiline { flex: 1; word-wrap: break-word; word-break: break-word; line-height: 1.3; max-width: 80%; padding-right: 0.3rem; }
+
+.category-item-multiline .count-badge { flex-shrink: 0; margin-left: auto; }
+
+
+.category-item-multiline:hover { background: #f3f4f6; color: #374151; }
+
+.category-item-multiline.active { background: #e5e7eb; color: #111827; font-weight: 600; border-left-color: #111827; }
+
+body.dark-mode .category-item-multiline:hover { background: #334155; }
+
+body.dark-mode .category-item-multiline.active { background: #475569; color: #f1f5f9; border-left-color: #e2e8f0; }
+
+

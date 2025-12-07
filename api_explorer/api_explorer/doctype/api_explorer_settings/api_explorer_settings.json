@@ -19,6 +19,7 @@
   "show_internal_apis",
   "show_resource_apis",
   "show_scheduler_jobs",
+  "show_custom_decorators",
   "column_break_display",
   "enable_search",
   "pagination_tab",
@@ -114,6 +115,13 @@
    "fieldname": "show_scheduler_jobs",
    "fieldtype": "Check",
    "label": "Show Scheduler Jobs"
+  },
+  {
+   "default": "0",
+   "fieldname": "show_custom_decorators",
+   "fieldtype": "Check",
+   "label": "Show Custom Decorators (Development Phase)",
+   "description": "Discover and display APIs with custom decorators (e.g., @api_explorer, @custom_api). Note: Currently scans module-level functions only."
   },
   {
    "fieldname": "column_break_display",

@@ -65,6 +65,13 @@ class APIScanner:
             apis = self.scheduler_scanner.get_scheduler_apis(app, max_apis)
             app_data["schedulers"] = [api for api in apis if api.get('path') not in excluded_methods]
         
+        # Add custom decorator categories
+        if self.settings.get('show_custom_decorators', 0):
+            all_functions = self.file_scanner._scan_all_functions(app)
+            for category, apis in all_functions.items():
+                if category.startswith('@'):  # Custom decorator categories
+                    app_data[category] = [api for api in apis if api.get('path') not in excluded_methods]
+        
         return app_data if any(app_data.values()) else None
 
 @frappe.whitelist(xss_safe=False)
