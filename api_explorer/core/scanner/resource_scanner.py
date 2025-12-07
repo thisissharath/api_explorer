@@ -19,6 +19,7 @@ class ResourceScanner:
                     {
                         "name": f"List {dt_name}",
                         "path": f"frappe.client.get_list::{dt_name}",
+                        "display_path": f"/api/resource/{dt_name}",
                         "location": f"/api/resource/{dt_name}",
                         "docstring": f"Get list of {dt_name} records",
                         "parameters": [],
@@ -28,6 +29,7 @@ class ResourceScanner:
                     {
                         "name": f"Get {dt_name}",
                         "path": f"frappe.client.get::{dt_name}",
+                        "display_path": f"/api/resource/{dt_name}/{{name}}",
                         "location": f"/api/resource/{dt_name}",
                         "docstring": f"Get a {dt_name} record by name",
                         "parameters": [],

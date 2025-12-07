@@ -10,7 +10,7 @@ const ApiCard = {
         <div class="api-content">
           <div class="api-text">
             <div class="api-method">{{ api.name || api.api_name }}</div>
-            <div class="api-path">{{ api.path || api.api_path }}</div>
+            <div class="api-path">{{ api.display_path || api.path || api.api_path }}</div>
             <div v-if="api.scheduler" class="api-frequency">{{ api.frequency }}</div>
           </div>
         </div>
