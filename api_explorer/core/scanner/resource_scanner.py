@@ -18,23 +18,21 @@ class ResourceScanner:
                 apis.extend([
                     {
                         "name": f"List {dt_name}",
-                        "path": f"/api/resource/{dt_name}",
+                        "path": f"frappe.client.get_list::{dt_name}",
                         "location": f"/api/resource/{dt_name}",
                         "docstring": f"Get list of {dt_name} records",
-                        "parameters": [
-                            {"name": "fields", "type": "text", "required": False},
-                            {"name": "filters", "type": "textarea", "required": False},
-                            {"name": "limit", "type": "number", "required": False}
-                        ]
+                        "parameters": [],
+                        "resource_api": True,
+                        "doctype": dt_name
                     },
                     {
-                        "name": f"Create {dt_name}",
-                        "path": f"/api/resource/{dt_name}",
+                        "name": f"Get {dt_name}",
+                        "path": f"frappe.client.get::{dt_name}",
                         "location": f"/api/resource/{dt_name}",
-                        "docstring": f"Create new {dt_name} record",
-                        "parameters": [
-                            {"name": "data", "type": "textarea", "required": True}
-                        ]
+                        "docstring": f"Get a {dt_name} record by name",
+                        "parameters": [],
+                        "resource_api": True,
+                        "doctype": dt_name
                     }
                 ])
                 

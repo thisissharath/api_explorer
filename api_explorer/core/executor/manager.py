@@ -57,6 +57,14 @@ class APIExecutor:
         parameters = context["parameters"]
         files = context["files"]
         
+        # Handle resource APIs
+        if "::" in api_path:
+            method, doctype = api_path.split("::", 1)
+            if method == "frappe.client.get_list":
+                return frappe.client.get_list(doctype, **parameters)
+            elif method == "frappe.client.get":
+                return frappe.client.get(doctype, **parameters)
+        
         exec_params = self._convert_parameter_types(api_path, parameters)
         
         if files:
